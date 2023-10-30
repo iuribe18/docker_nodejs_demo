@@ -6,5 +6,5 @@ Provider URL:https://token.actions.githubusercontent.com
 Audience: sts.amazonaws.com
 Output ARN: arn:aws:iam::735948513526:oidc-provider/token.actions.githubusercontent.com
 
-2. Create a rol
-Custom trust Policy
+2. Create a rol sustom trust Policy
+Add policy: AmazonEC2ContainerRegistryFullAccess
