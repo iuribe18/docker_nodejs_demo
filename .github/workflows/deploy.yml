@@ -60,3 +60,8 @@ jobs:
 
     - name: Clear Docker Images
       run: docker rmi -f $(docker images -q)
+
+    - name: Download task definition
+      run: |
+        echo ${{ steps.build-image.outputs.image }}
+        aws ecs describe-task-definition --task-definition task_test --query taskDefinition > task-definition.json
