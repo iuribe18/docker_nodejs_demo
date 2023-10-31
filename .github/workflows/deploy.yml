@@ -32,17 +32,13 @@ jobs:
         role-to-assume: arn:aws:iam::735948513526:role/GitHubActions
 
     - name: SHA
-      uses: actions/checkout@v3
-    - uses: benjlevesque/short-sha@v2.2
+      uses: benjlevesque/short-sha@v2.2
       id: short-sha
       with:
         length: 6
-    - run: echo $SHA
-      env:
-        SHA: ${{ steps.short-sha.outputs.sha }}
-    - run: echo $SHA
-      env:
-        SHA: ${{ env.SHA }}
+
+    - name: Print SHA
+      run: echo ${{ steps.short-sha.outputs.sha }}
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -52,7 +48,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: docker_nodejs_demo
-        IMAGE_TAG: nodejs_demo_image.${{ env.SHA }}
+        IMAGE_TAG: nodejs_demo_image.${{ steps.short-sha.outputs.sha }}
       run: |
         echo print_variables
         echo $ECR_REGISTRY
