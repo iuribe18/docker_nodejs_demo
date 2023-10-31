@@ -65,3 +65,11 @@ jobs:
       run: |
         echo ${{ steps.build-image.outputs.image }}
         aws ecs describe-task-definition --task-definition task_test --query taskDefinition > task-definition.json
+
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: nodejs_demo
+        image: ${{ steps.build-image.outputs.image }}
